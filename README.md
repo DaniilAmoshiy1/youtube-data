@@ -12,7 +12,7 @@ Start commands only from directory youtube-data!
 ```bash
 python -m venv venv
 ```
-## actiavte virtual environment(windows):
+## activate virtual environment(windows):
 ```bash
 venv/Scripts/activate
 ```
@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ```
 ## example(after execution, look at the output file):
 ```bash
-python main.py https://www.youtube.com/playlist?list=PLlfVHEB1pHYb0ORhWxdECbIjmutbVO-Q1
+python main.py --url https://www.youtube.com/playlist?list=PLlfVHEB1pHYb0ORhWxdECbIjmutbVO-Q1
 ```
 ## ruff check:
 ```bash
