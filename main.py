@@ -26,10 +26,11 @@ def main(url: str):
         sleep(SECONDS_FOR_SLEEP)
 
         try:
-            video_name_elements = driver.find_elements(By.ID, NAME_ELEMENT_ID)
-            video_length_elements = driver.find_elements(By.XPATH, LENGTH_ELEMENT_XPATH)
-            video_views_elements = driver.find_elements(By.XPATH, VIEWS_ELEMENT_XPATH)
+            video_name_elements: list = driver.find_elements(By.ID, NAME_ELEMENT_ID)
+            video_length_elements: list = driver.find_elements(By.XPATH, LENGTH_ELEMENT_XPATH)
+            video_views_elements: list = driver.find_elements(By.XPATH, VIEWS_ELEMENT_XPATH)
 
+            print(type(video_name_elements))
             with open(OUTPUT_FILE, 'w', encoding='UTF-8') as out_file:
                 for name_element, length_element, views_element in zip(video_name_elements,
                                                                        video_length_elements,
