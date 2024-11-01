@@ -8,7 +8,7 @@ This is my homework project, in it, we pass a link to a YouTube playlist and it 
 Attention! Before using, make sure you have Google Chrome browser installed.
 
 Start commands only from directory youtube-data!
-## create virtual environment(windows):
+## windows create virtual environment(windows):
 ```bash
 python -m venv venv
 ```
@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ```
 ## example(after execution, look at the output file):
 ```bash
-python main.py --url https://www.youtube.com/playlist?list=PLlfVHEB1pHYb0ORhWxdECbIjmutbVO-Q1
+python main.py https://www.youtube.com/playlist?list=PLlfVHEB1pHYb0ORhWxdECbIjmutbVO-Q1
 ```
 ## ruff check:
 ```bash

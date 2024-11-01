@@ -3,7 +3,7 @@ from time import sleep
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 
-from working_files.config import (
+from source.config import (
     CHECK_VALUE,
     NAME_ELEMENT_ID,
     OUTPUT_FILE,
@@ -13,44 +13,51 @@ from working_files.config import (
     ERROR_EXIT_CODE,
     SECONDS_FOR_SLEEP,
 )
-from working_files.argument_parser import parser_args
-
-
-driver: webdriver = webdriver.Chrome()
+from source.argument_parser import parser_args
 
 
 def main(url: str):
-    if CHECK_VALUE in url:
-        driver.get(url)
-        print(driver.title)
-        sleep(SECONDS_FOR_SLEEP)
+    driver = webdriver.Chrome()
 
-        try:
-            video_name_elements: list = driver.find_elements(By.ID, NAME_ELEMENT_ID)
-            video_length_elements: list = driver.find_elements(By.XPATH, LENGTH_ELEMENT_XPATH)
-            video_views_elements: list = driver.find_elements(By.XPATH, VIEWS_ELEMENT_XPATH)
-
-            print(type(video_name_elements))
-            with open(OUTPUT_FILE, 'w', encoding='UTF-8') as out_file:
-                for name_element, length_element, views_element in zip(video_name_elements,
-                                                                       video_length_elements,
-                                                                       video_views_elements):
-                    video_name: str = f'Video name: {name_element.text}'
-                    video_length: str = f'Video length: {length_element.get_attribute("aria-label")}'
-                    video_views: str = f'{views_element.text}'
-                    out_file.write(video_name + '\n')
-                    out_file.write(video_length + '\n')
-                    out_file.write(video_views + '\n\n')
-
-        except Exception as err:
-            print(f'Error: {err}')
-
-        driver.quit()
-        exit(NORMAL_EXIT_CODE)
-    else:
+    if CHECK_VALUE not in url:
         print('Incorrect link, try again')
         driver.quit()
         exit(ERROR_EXIT_CODE)
+
+    driver.get(url)
+    print(driver.title)
+    sleep(SECONDS_FOR_SLEEP)
+
+    try:
+        video_elements = {
+            'name': driver.find_elements(By.ID, NAME_ELEMENT_ID),
+            'length': driver.find_elements(By.XPATH, LENGTH_ELEMENT_XPATH),
+            'views': driver.find_elements(By.XPATH, VIEWS_ELEMENT_XPATH)
+        }
+
+        zipped_elements = zip(
+            video_elements['name'],
+            video_elements['length'],
+            video_elements['views']
+        )
+
+        with open(OUTPUT_FILE, 'w', encoding='UTF-8') as out_file:
+            for name_element, length_element, views_element in zipped_elements:
+                video_data = {
+                    'name': f'Video name: {name_element.text}',
+                    'length': f'Video length: {length_element.get_attribute("aria-label")}',
+                    'views': f'{views_element.text}'
+                }
+
+                for key in video_data:
+                    out_file.write(video_data[key] + '\n')
+                out_file.write('\n')
+
+    except Exception as err:
+        print(f'Error: {err}')
+
+    driver.quit()
+    exit(NORMAL_EXIT_CODE)
 
 
 if __name__ == '__main__':
