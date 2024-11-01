@@ -1,4 +1,4 @@
-### <p align="right">project version: 2.0.3</p>
+### <p align="right">project version: 2.1.1</p>
 
 # <p align="center">YouTube-data</p>
 
@@ -8,7 +8,7 @@ This is my homework project, in it, we pass a link to a YouTube playlist and it 
 Attention! Before using, make sure you have Google Chrome browser installed.
 
 Start commands only from directory youtube-data!
-## windows create virtual environment(windows):
+## create virtual environment(windows):
 ```bash
 python -m venv venv
 ```
